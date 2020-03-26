@@ -1,0 +1,42 @@
+package exercicios;
+
+import java.util.Locale;
+import java.util.Scanner;
+
+public class validacao_de_nota {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("Digite a primeira nota: ");
+		double n1 = sc.nextDouble();
+		
+		
+		while (n1 < 0 || n1 > 10)
+		{
+			System.out.print("Valor invalido! Tente novamente: ");
+			n1 = sc.nextDouble();
+		}
+		
+		System.out.print("Digite a segunda nota nota: ");
+		double n2 = sc.nextDouble();
+		
+		while (n2 < 0 || n2 > 10)
+		{
+			System.out.print("Valor invalido! Tente novamente: ");
+			n2 = sc.nextDouble();
+		}
+		
+		System.out.printf("\nNotas, %.2f %.2f", n1, n2);
+		
+		double media = 0;
+		media = n1 + n2 / 2;
+		
+		System.out.printf("MEDIA = %.2f", media);
+		
+		sc.close();
+	}
+
+}

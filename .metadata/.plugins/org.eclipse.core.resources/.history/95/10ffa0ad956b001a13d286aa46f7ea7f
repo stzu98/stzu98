@@ -1,0 +1,10 @@
+package exercicios;
+
+public class sequenca_impares {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

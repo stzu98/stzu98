@@ -1,0 +1,10 @@
+package curso_java;
+
+public class diagonal_negativos {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

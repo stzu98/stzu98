@@ -1,0 +1,40 @@
+package exercicios;
+
+public class Aluguel {
+	private String Nome;
+	private String email;
+	private int quarto;
+	
+	public Aluguel(String nome, String email, int quarto) {
+		
+		Nome = nome;
+		this.email = email;
+		this.quarto = quarto;
+	}
+
+	public String getNome() {
+		return Nome;
+	}
+
+	public void setNome(String nome) {
+		Nome = nome;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public int getQuarto() {
+		return quarto;
+	}
+
+	public void setQuarto(int quarto) {
+		this.quarto = quarto;
+	}
+	
+	
+}

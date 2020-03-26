@@ -1,0 +1,38 @@
+package exercicios;
+
+import java.util.Locale;
+import java.util.Scanner;
+
+public class media_ponderada {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		
+		int n;
+		double x, x2, x3, media;
+		
+		x = 0;
+		x2 = 0;
+		x3 = 0;
+		
+		media = 0;
+		System.out.print("Quantos casas você vai digitar? ");
+		n = sc.nextInt();
+		
+		System.out.println("\nDigite tres numeros: ");
+		for(int i = 0; i < n; i++)
+		{
+			x = sc.nextDouble();
+			x2 = sc.nextDouble();
+			x3 = sc.nextDouble();
+		}
+		
+		media = (x * 2 + x2 * 3 + x3 * 5)/10;
+		
+		System.out.printf("MEDIA = %.1f", media);
+		sc.close();
+	}
+
+}

@@ -1,0 +1,23 @@
+package exercicios;
+
+import java.util.Locale;
+import java.util.Scanner;
+
+public class temperatura {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		
+		double F = 75.00;
+		
+		double C = (F - 32) / 1.8;
+		
+		System.out.println("C = %.2f", C);
+				
+		sc.close();
+	}
+
+}

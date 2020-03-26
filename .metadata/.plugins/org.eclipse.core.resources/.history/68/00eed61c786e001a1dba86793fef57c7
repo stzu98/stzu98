@@ -1,0 +1,10 @@
+package exercicios;
+
+public class AtmPrograma {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

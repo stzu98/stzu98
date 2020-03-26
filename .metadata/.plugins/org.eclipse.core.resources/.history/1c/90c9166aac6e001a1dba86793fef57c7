@@ -1,0 +1,50 @@
+package exercicios;
+
+import java.util.Locale;
+import java.util.Scanner;
+
+public class AluguelPrograma {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		
+		
+		System.out.print("How Many rooms will be rented?  ");
+		int n = sc.nextInt();
+		
+		Aluguel[] vetor = new Aluguel[n];
+		
+		for(int i = 0; i < vetor.length; i++)
+		{
+			System.out.println("Rent #" + i + 1 + ":");
+			System.out.print("Nome: ");
+			sc.nextLine();
+			String nome = sc.nextLine();
+			System.out.print("Email: ");
+			sc.nextLine();
+			String email = sc.nextLine();
+			System.out.print("Quarto: ");
+			int quarto = sc.nextInt();
+			
+			vetor[i] = new Aluguel(nome, email, quarto);
+		}
+		
+		System.out.println();
+		
+		System.out.println("Busy rooms: ");
+		
+		for(int i = 0; i < vetor.length; i++)
+		{
+			if(vetor[i] != null)
+			{
+				System.out.println(vetor[i]);
+			}
+			
+		}
+		sc.close();
+	}
+
+}

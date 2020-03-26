@@ -1,0 +1,67 @@
+package exercicios;
+
+import java.util.Locale;
+import java.util.Scanner;
+
+public class AtmPrograma {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		
+		Atm operacao;
+		
+		System.out.print("Entre com o numero da conta: ");
+		int numeroConta = sc.nextInt();
+		
+		System.out.print("Entre com o Dono da conta: ");
+		sc.nextLine();
+		String titularConta = sc.nextLine();
+		
+		System.out.print("Existe depósito inicial? (Y/N)? ");
+		sc.hasNextLine();
+		String escolha = sc.nextLine();
+				
+		if (escolha.contentEquals("Y"))
+		{
+			System.out.print("Entre com o valor do deposito: ");
+			double deposito = sc.nextDouble();
+			operacao = new Atm(numeroConta, titularConta, deposito);
+			}
+		else
+		{
+			operacao = new Atm(numeroConta, titularConta);
+		}
+		
+		System.out.println();
+		System.out.println("Dados da conta: "+ operacao);
+		
+		System.out.println();
+		
+		System.out.print("Entre com o valor do deposito: ");
+		double montante = sc.nextDouble();
+		operacao.deposito(montante);
+		
+		System.out.println();
+		
+		System.out.println("Atualização da conta: ");
+		System.out.println(operacao);
+		
+		System.out.println();
+		
+		System.out.print("Entre com o valor do saque: ");
+		montante = sc.nextDouble();
+		operacao.saque(montante);
+		
+		System.out.println();
+		
+		System.out.println("Atualização da conta: ");
+		System.out.println(operacao);
+		
+		
+		sc.close();
+	}
+
+}

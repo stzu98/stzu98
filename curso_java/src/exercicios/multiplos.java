@@ -1,0 +1,38 @@
+package exercicios;
+
+import java.util.Locale;
+import java.util.Scanner;
+
+public class multiplos {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		
+		int x, y, z;
+		
+		System.out.println("Digite dois numeros inteiros: ");
+		x = sc.nextInt();
+		y = sc.nextInt();
+		
+		if (x < y)
+		{
+			z = x;
+			x = z;
+			y = z;
+		}
+		
+		if(x % y == 0)
+		{
+			System.out.println("São multiplos");
+		}
+		else
+		{
+			System.out.println("Não são multiplos");
+		}
+		sc.close();
+	}
+
+}

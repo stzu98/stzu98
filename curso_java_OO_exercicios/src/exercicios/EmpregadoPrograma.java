@@ -1,0 +1,68 @@
+package exercicios;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Scanner;
+
+public class EmpregadoPrograma {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		
+		List <Empregado> list = new ArrayList <> ();
+		
+		System.out.print("Quantos empregados vc irá registrar? ");
+		int N = sc.nextInt();
+		
+		for(int i = 1; i <= N; i++)
+		{
+			System.out.println("Empregado #"+ i + ":");
+			System.out.print("Id: ");
+			int id = sc.nextInt();
+			
+			System.out.print("Nome: ");
+			sc.nextLine();
+			String nome = sc.nextLine();
+			
+			System.out.print("Salário: ");
+			double salario = sc.nextDouble();
+			
+			list.add(new Empregado(id, nome, salario));
+		}
+		
+		System.out.println();
+		System.out.print("Entre com a ID do emprego para aumento de salário: ");
+		int id = sc.nextInt();
+		
+		System.out.println();
+		
+		Empregado emp = list.stream().filter(x -> x.getId() == id).findFirst().orElse(null);
+		
+		if(emp == null)
+		{
+			System.out.println("Essa id não existe! ");
+		}
+		
+		else
+		{
+			System.out.print("Entre com a porcentagem: ");
+			double porcentagem = sc.nextDouble();
+			emp.aumentoSalario(porcentagem);
+			
+		}
+		
+		System.out.println();
+		System.out.println("Lista de Empregados: ");
+		
+		for (Empregado obj : list) {
+			System.out.println(obj);
+		}
+		
+		sc.close();
+	}
+
+}

@@ -1,0 +1,38 @@
+package exercicios;
+
+import java.util.Locale;
+import java.util.Scanner;
+
+public class FuncionarioPrograma {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		
+		Funcionario var;
+		var = new Funcionario();
+		
+		System.out.print("Nome: ");
+		var.nome = sc.nextLine();
+		System.out.print("Salario bruto: ");
+		var.salarioBruto = sc.nextDouble();
+		System.out.print("Taxa: ");
+		var.imposto = sc.nextDouble();
+		
+		var.NetSalary();
+		
+		System.out.println(var);
+		
+		System.out.print("Qual porcentagem para aumento de salario: ");
+		double taxa = sc.nextDouble();
+		
+		var.aumentoSalario(taxa);
+		
+		System.out.println("Atualização dos dados:" + var);
+		
+		sc.close();
+	}
+
+}

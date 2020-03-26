@@ -1,0 +1,49 @@
+package exercicios;
+
+import java.util.Locale;
+import java.util.Scanner;
+
+public class Matriz {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("Digita a linha M e coluna N da matriz: ");
+		int M = sc.nextInt();
+		int N = sc.nextInt();
+		
+		int[][] matriz = new int [M][N];
+		
+		System.out.println();
+		System.out.println("Digite os números da matriz: ");
+		for(int i = 0; i < M; i++)
+		{
+			for(int j = 0; j < N; j++)
+			{
+				System.out.print("["+ i + "," + j + "]: "); 
+						matriz[i][j] = sc.nextInt();
+			}
+		}
+		
+		System.out.println("Digite um numero: ");
+		int numero = sc.nextInt();
+		
+		for(int i = 0; i < M; i++)
+		{
+			for(int j = 0; j < N; j++)
+			{
+				if (matriz[i][j] == 8)
+				{
+					System.out.println("Position " + i + "," + j + ":" );
+										
+				}
+			}
+		}
+		
+		sc.close();
+	}
+
+}

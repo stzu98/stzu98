@@ -1,0 +1,38 @@
+package exercicios;
+
+public class Atm {
+	
+	private int numeroConta;
+	public String titularConta;
+	public double deposito;
+	public double saque;
+	private double saldo;
+
+	public Atm(int numeroConta, String titularConta, double deposito) {
+		
+		this.numeroConta = numeroConta;
+		this.titularConta = titularConta;
+		this.deposito = deposito;
+	}
+	
+	
+
+	public int getNumeroConta() {
+		return numeroConta;
+	}
+
+	public double getSaldo() {
+		return saldo;
+	}
+
+	public double deposito1()
+	{
+		return saldo = saldo + deposito;
+	}
+	
+	public double saque1()
+	{
+		return saldo = saldo - saque;
+	}
+	
+}

@@ -1,0 +1,39 @@
+package exercicios;
+
+import java.util.Locale;
+import java.util.Scanner;
+
+public class troco_verificado {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		
+		double preco, dinheiro, troco, falta;
+		int quantidade;
+		
+		System.out.print("Preço unitário do produto: ");
+		preco = sc.nextDouble();
+		System.out.print("Quantidade comprada: ");
+		quantidade = sc.nextInt();
+		System.out.print("Valor recebido: ");
+		dinheiro = sc.nextDouble();
+		
+		troco = (double) dinheiro - preco * quantidade; 
+		
+		if (dinheiro > troco)
+		{
+			System.out.printf("TROCO = %2.f\n", troco);
+		}
+		
+		else
+		{
+			
+			System.out.printf("DINHEIRO INSUFICIENTE. FALTAM %.2f\n", troco);
+		}
+		sc.close();
+	}
+
+}

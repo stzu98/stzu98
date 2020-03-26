@@ -1,0 +1,35 @@
+package exercicios;
+
+import java.util.Locale;
+import java.util.Scanner;
+
+public class AtmPrograma {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		
+		
+		System.out.print("Existe depósito inicial? (Y/N)");
+		String escolha = sc.nextLine();
+		
+		double deposito = 0;
+		
+		if(escolha == "Y")
+		{
+			System.out.print("Entre com o valor do deposito: ");
+			deposito = sc.nextDouble();
+		}
+		else
+		{
+			deposito = 0;
+		}
+		
+				
+		System.out.println("Conta: "+ escolha);
+		sc.close();
+	}
+
+}

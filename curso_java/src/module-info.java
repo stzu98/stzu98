@@ -1,0 +1,2 @@
+module curso_java {
+}

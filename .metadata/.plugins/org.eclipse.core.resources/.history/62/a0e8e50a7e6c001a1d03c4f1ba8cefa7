@@ -1,0 +1,11 @@
+package exercicios;
+
+public class CurrencyConverter {
+
+	
+	
+	public static double converter(double dollarAmount, double dollarPrice)
+	{
+		return (dollarAmount * 0.06) + dollarAmount * dollarPrice;
+	}
+}

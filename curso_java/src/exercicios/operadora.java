@@ -1,0 +1,33 @@
+package exercicios;
+
+import java.util.Locale;
+import java.util.Scanner;
+
+public class operadora {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		
+		int minutos;
+		double valor = 0;
+		
+		System.out.print("Digite a quantidade de minutos: ");
+		minutos = sc.nextInt();
+		
+		if (minutos < 100)
+		{
+			System.out.println("Valor à pagar: 50.00");
+		}
+		
+		else
+		{
+			valor = (double) ((minutos - 100) * 2.00) + 50.00;
+			System.out.printf("Valor à pagar %.2f\n", valor);
+		}
+		sc.close();
+	}
+
+}
