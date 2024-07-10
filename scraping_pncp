@@ -1,0 +1,154 @@
+from seleniumbase import Driver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException, TimeoutException
+import pandas as pd
+import time
+
+def configurar_driver():
+    # Inicializar o driver com modo uc e headless
+    driver = Driver(uc=True, headless=True)
+    return driver
+
+def navegar_para_site(driver, url):
+    # Navegar para o link especificado
+    driver.get(url)
+
+    # Esperar até que um elemento específico esteja presente na página
+    try:
+        elemento_especifico = WebDriverWait(driver, 20).until(
+            EC.presence_of_element_located((By.XPATH, '/html/body/app-root/div/div/div/app-cabecalho-compra-acesso-publico/app-cabecalho-compra/div[4]/div[2]/div/app-botoes-cabecalho-compra/span/app-botao-mensagens-da-compra/span/app-botao-icone/span/button'))
+        )
+        print("Página carregada com sucesso")
+    except Exception as e:
+        print(f"Erro ao carregar a página: {e}")
+        driver.quit()
+
+def clicar_no_botao(driver):
+    try:
+        # Esperar até que o ícone esteja presente e clicável
+        icone = WebDriverWait(driver, 20).until(
+            EC.presence_of_element_located((By.XPATH, '/html/body/app-root/div/div/div/app-cabecalho-compra-acesso-publico/app-cabecalho-compra/div[4]/div[2]/div/app-botoes-cabecalho-compra/span/app-botao-mensagens-da-compra/span/app-botao-icone/span/button'))
+        )
+        icone.click()
+        print("Botão clicado com sucesso")
+    except Exception as e:
+        print(f"Erro ao clicar no botão: {e}")
+
+def capturar_mensagens_pagina(driver, url, pagina_atual):
+    tentativas = 0
+    max_tentativas = 3  # Número máximo de tentativas
+
+    while tentativas < max_tentativas:
+        time.sleep(3)
+        try:
+            # Esperar até que os elementos de mensagens estejam presentes
+            mensagens = WebDriverWait(driver, 20).until(
+                EC.presence_of_all_elements_located((By.CLASS_NAME, 'cp-mensagens-compra'))
+            )
+            lista_mensagens = []
+
+            # Função auxiliar para buscar elementos de forma segura
+            def buscar_texto(elemento, by, value):
+                try:
+                    return elemento.find_element(by, value).text
+                except NoSuchElementException:
+                    return None
+
+            for mensagem in mensagens:
+                remetente = buscar_texto(mensagem, By.CLASS_NAME, 'mensagens-remetente')
+                texto = buscar_texto(mensagem, By.CLASS_NAME, 'mensagens-texto')
+                item = buscar_texto(mensagem, By.CLASS_NAME, 'mensagens-item')
+                data_hora = buscar_texto(mensagem, By.CLASS_NAME, 'mensagens-data')
+
+                dados_mensagem = {
+                    'remetente': remetente,
+                    'texto': texto,
+                    'item': item,
+                    'data_hora': data_hora
+                }
+
+                lista_mensagens.append(dados_mensagem)
+
+                # Imprimir cada mensagem capturada
+                print(f"Remetente: {dados_mensagem['remetente']}")
+                if dados_mensagem['item']:
+                    print(f"Item: {dados_mensagem['item']}")
+                print(f"Texto: {dados_mensagem['texto']}")
+                if dados_mensagem['data_hora']:
+                    print(f"Data/Hora: {dados_mensagem['data_hora']}")
+                print("-" * 40)
+
+            return lista_mensagens
+
+        except TimeoutException:
+            tentativas += 1
+            print(f"TimeoutException na página {pagina_atual}. Tentativa {tentativas} de {max_tentativas}...")
+            if tentativas >= max_tentativas:
+                print(f"Máximo de tentativas alcançado na página {pagina_atual}. Pulando esta página.")
+                return []
+
+def navegar_para_proxima_pagina(driver, pagina_atual):
+    try:
+        botao_proxima_pagina = WebDriverWait(driver, 20).until(
+            EC.element_to_be_clickable((By.CSS_SELECTOR, "button.p-paginator-next"))
+        )
+
+        # Verificar se o botão "Próxima página" está clicável
+        if botao_proxima_pagina and botao_proxima_pagina.is_enabled():
+            driver.execute_script("arguments[0].click();", botao_proxima_pagina)
+            print(f"Página {pagina_atual} processada")
+            return True
+        else:
+            # Tentar clicar no botão da última página
+            try:
+                botao_pagina_atual = WebDriverWait(driver, 20).until(
+                    EC.element_to_be_clickable((By.XPATH, f"//button[@aria-label='Page {pagina_atual + 1}']"))
+                )
+                driver.execute_script("arguments[0].click();", botao_pagina_atual)
+                print(f"Botão da página {pagina_atual + 1} clicado com sucesso")
+                return True
+            except Exception as e:
+                print(f"Erro ao clicar no botão da página {pagina_atual + 1}: {e}")
+                return False
+    except NoSuchElementException:
+        print("Botão 'Próxima página' não encontrado.")
+        return False
+    except Exception as e:
+        print(f"Erro ao clicar no botão 'Próxima página': {e}")
+        return False
+
+# Configuração do driver
+driver = configurar_driver()
+
+# URL para navegação
+url = 'https://cnetmobile.estaleiro.serpro.gov.br/comprasnet-web/public/compras/acompanhamento-compra?compra=99019205900062024'
+
+# Navegar para a página especificada
+navegar_para_site(driver, url)
+clicar_no_botao(driver)
+
+# Lista para armazenar todas as mensagens de todas as páginas
+todas_mensagens = []
+pagina_atual = 1
+
+# Capturar mensagens de todas as páginas
+while True:
+    todas_mensagens.extend(capturar_mensagens_pagina(driver, url, pagina_atual))
+    time.sleep(1)
+    pagina_atual += 1
+    # Verificar se há uma próxima página e navegar
+    if not navegar_para_proxima_pagina(driver, pagina_atual):
+        break
+
+# Converter lista de dicionários em DataFrame
+df = pd.DataFrame(todas_mensagens)
+
+# Salvar DataFrame em um arquivo Excel
+df.to_excel('mensagens_chat.xlsx', index=False, engine='openpyxl')
+
+print("Dados exportados para mensagens_chat.xlsx")
+
+# Fechar o driver
+driver.quit()
